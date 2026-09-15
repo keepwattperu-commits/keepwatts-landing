@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keepwatts | Energía para quienes más lo necesitan</title>
+    
+    <!-- 1. Importamos la fuente exacta de la página de referencia: Red Hat Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    /* Aplicamos la fuente a todo el documento */
+                    fontFamily: { sans: ['"Red Hat Display"', 'sans-serif'] },
+                    /* 2. Colores exactos extraídos de la imagen */
+                    colors: {
+                        'keep-blue': '#124A7A',   /* Azul profundo corporativo */
+                        'keep-yellow': '#FFC425', /* Amarillo brillante */
+                        'keep-light': '#E8EEF2'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Herramientas gratuitas para el mapa interactivo (Leaflet) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="bg-keep-light font-sans text-gray-800">
+
+<!-- MENÚ DE NAVEGACIÓN -->
+    <nav class="bg-white shadow-sm fixed w-full z-50 top-0 py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2">
+                    <div class="text-keep-yellow text-3xl">☀️</div>
+                    <span class="font-black text-2xl text-keep-blue tracking-tight leading-none uppercase">KEEP<br>WATTS</span>
+                </a>
+                
+                <!-- Menú Hamburguesa (Móvil) -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-button" class="text-keep-blue hover:text-keep-yellow focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="#nosotros" class="bg-keep-blue text-white px-5 py-2 rounded-full font-semibold text-sm hover:bg-blue-900 transition">Sobre nosotros</a>
+                    <a href="#proyectos" class="bg-keep-blue text-white px-5 py-2 rounded-full font-semibold text-sm hover:bg-blue-900 transition">Proyectos completados</a>
+                    <!-- Se eliminó el enlace a fundadores aquí -->
+                    <a href="#involucrate" class="bg-keep-yellow text-keep-blue px-6 py-2 rounded-full font-bold text-sm hover:bg-yellow-400 transition ml-4">Involúcrate</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENÚ MÓVIL (Desplegable) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
+            <div class="px-4 pt-4 pb-6 space-y-3 flex flex-col">
+                <a href="#nosotros" class="mobile-link bg-keep-blue text-white px-4 py-3 rounded-full font-semibold text-center">Sobre nosotros</a>
+                <a href="#proyectos" class="mobile-link bg-keep-blue text-white px-4 py-3 rounded-full font-semibold text-center">Proyectos</a>
+                <!-- Se eliminó el enlace a fundadores aquí -->
+                <a href="#involucrate" class="mobile-link bg-keep-yellow text-keep-blue px-4 py-3 rounded-full font-bold text-center mt-2">Involúcrate</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 3. SECCIÓN HERO (Fondo con overlay azul y texto centrado) -->
+    <!-- Nota: La imagen de fondo es un placeholder de paneles solares, puedes cambiar la URL luego -->
+    <section class="relative bg-[url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center h-[80vh] min-h-[500px] flex items-center justify-center mt-20">
+        
+        <!-- Overlay azul semitransparente -->
+        <div class="absolute inset-0 bg-keep-blue/80"></div> 
+        
+        <!-- Contenido principal -->
+        <div class="relative z-10 max-w-4xl px-4 text-center">
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-6 tracking-wide uppercase">
+                Keep<br>Watts
+            </h1>
+            <p class="text-lg md:text-2xl text-white font-medium max-w-2xl mx-auto leading-relaxed">
+                Instalando sistemas solares esenciales en asilos, albergues y otras instituciones de forma gratuita
+            </p>
+        </div>
+    </section>
+
+    <!-- 4. SECCIÓN EN NÚMEROS (Tarjetas con bordes como en la referencia) -->
+  <!-- 4. SECCIÓN CONOCE NUESTROS DATOS (Estilo DistritoK) -->
+    <section class="py-24 bg-white text-center">
+        <div class="max-w-5xl mx-auto px-4">
+            
+            <!-- Línea superior azul y Título -->
+            <div class="w-20 h-[3px] bg-[#00AEEF] mx-auto mb-6"></div>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-20 leading-tight tracking-tight">Conoce<br>nuestros datos</h2>
+
+            <!-- Cuadrícula de 3 columnas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+                
+                <!-- Dato 1 -->
+                <div>
+                    <div class="text-7xl font-bold text-gray-900 mb-4 flex justify-center items-center">
+                        <span class="text-[#00AEEF] mr-1 text-6xl font-black">+</span>
+                        <span class="contador tracking-tighter" data-target="25">0</span>
+                    </div>
+                    <p class="text-gray-800 font-semibold text-xl">Asilos y albergues</p>
+                </div>
+
+                <!-- Dato 2 -->
+                <div>
+                    <div class="text-7xl font-bold text-gray-900 mb-4 flex justify-center items-center">
+                        <span class="text-[#D80073] mr-1 text-6xl font-black">+</span>
+                        <span class="contador tracking-tighter" data-target="10">0</span>
+                    </div>
+                    <p class="text-gray-800 font-semibold text-xl">Regiones alcanzadas</p>
+                </div>
+
+                <!-- Dato 3 -->
+                <div>
+                    <div class="text-7xl font-bold text-gray-900 mb-4 flex justify-center items-center">
+                        <span class="text-[#FBBF24] mr-1 text-6xl font-black">+</span>
+                        <span class="contador tracking-tighter" data-target="683">0</span>
+                    </div>
+                    <p class="text-gray-800 font-semibold text-xl">kW capacidad instalada</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+<!-- ========================================== -->
+    <!-- NUEVAS SECCIONES: SOBRE NOSOTROS Y PROYECTOS -->
+    <!-- ========================================== -->
+
+    <!-- SECCIÓN: SOBRE NOSOTROS -->
+     <section id="nosotros" class="py-24 bg-white px-4 scroll-mt-24">
+   
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2">
+                <h2 class="text-3xl md:text-4xl font-black text-keep-blue uppercase tracking-wide mb-4">Sobre Nosotros</h2>
+                <div class="w-20 h-[3px] bg-keep-yellow mb-8"></div>
+                <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                    Somos una Asociación Civil sin fines de lucro dedicada a diseñar, gestionar y ejecutar proyectos de electrificación mediante energías renovables.
+                </p>
+                <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                    Nuestra misión es transformar la infraestructura humanitaria, garantizando seguridad alimentaria en comedores populares y protección en asilos y albergues, mientras promovemos la gestión técnica de residuos (RAEE).
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center text-keep-blue font-bold">
+                        <svg class="w-6 h-6 mr-3 text-keep-yellow" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Energía Limpia y Renovable
+                    </li>
+                    <li class="flex items-center text-keep-blue font-bold">
+                        <svg class="w-6 h-6 mr-3 text-keep-yellow" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Independencia para grupos vulnerables
+                    </li>
+                    <li class="flex items-center text-keep-blue font-bold">
+                        <svg class="w-6 h-6 mr-3 text-keep-yellow" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Educación y Capacitación Técnica
+                    </li>
+                </ul>
+            </div>
+            <div class="md:w-1/2 relative">
+                <!-- Marco decorativo amarillo desplazado -->
+                <div class="absolute -inset-4 border-4 border-keep-yellow rounded-2xl transform translate-x-4 translate-y-4 z-0"></div>
+                <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Instalación comunitaria" class="relative z-10 rounded-2xl shadow-xl w-full h-auto object-cover">
+            </div>
+        </div>
+    </section>
+
+<!-- ========================================== -->
+    <!-- SECCIÓN: META DE RECAUDACIÓN (NUEVO)       -->
+    <!-- ========================================== -->
+    <section class="py-20 bg-white px-4 border-t-2 border-gray-100">
+        <div class="max-w-5xl mx-auto text-center">
+            
+            <h2 class="text-3xl md:text-4xl font-black text-keep-blue uppercase tracking-wide mb-4">
+                Ayúdanos a llegar a la meta en nuestros proyectos
+            </h2>
+            <div class="w-20 h-[3px] bg-keep-yellow mx-auto mb-10"></div>
+
+            <!-- Tarjeta de la Campaña -->
+            <div class="bg-keep-light rounded-3xl p-8 md:p-12 shadow-xl border border-blue-50 relative overflow-hidden transform hover:-translate-y-1 transition duration-300">
+                <!-- Decoración circular en la esquina -->
+                <div class="absolute top-0 right-0 w-40 h-40 bg-[#00AEEF] opacity-10 rounded-bl-full pointer-events-none"></div>
+                
+                <h3 class="text-2xl md:text-3xl font-black text-keep-blue mb-4 relative z-10">
+                    Paneles Solares para el comedor de la parroquia Antiquia
+                </h3>
+                <p class="text-gray-600 font-medium mb-8 relative z-10 max-w-3xl mx-auto text-lg">
+                    Tu donación nos acerca más a brindar independencia energética a este comedor, garantizando la seguridad alimentaria y la cadena de frío para quienes más lo necesitan.
+                </p>
+
+                <!-- Galería de Imágenes Añadida -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 relative z-10">
+                    <img src="comd001.jpg" alt="Comedor Parroquia Antiquia - Foto 1" class="w-full h-56 object-cover rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300 border border-white">
+                    <img src="comd002.jpg" alt="Comedor Parroquia Antiquia - Foto 2" class="w-full h-56 object-cover rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300 border border-white">
+                    <img src="comd003.jpg" alt="Comedor Parroquia Antiquia - Foto 3" class="w-full h-56 object-cover rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300 border border-white">
+                </div>
+
+                <!-- Contenedor de la barra de progreso -->
+                <div class="relative z-10 max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-4">
+                        <span class="text-xl font-black text-[#00AEEF]">Recaudado: S/ 5,200</span>
+                        <span class="text-lg font-bold text-gray-500">Meta: S/ 207,000</span>
+                    </div>
+                    
+                    <!-- Barra de fondo -->
+                    <div class="w-full bg-gray-200 rounded-full h-8 mb-3 overflow-hidden shadow-inner relative">
+                        <!-- Barra de progreso llena -->
+                        <div class="bg-gradient-to-r from-[#00AEEF] to-keep-blue h-8 rounded-full transition-all duration-1000 ease-out flex items-center justify-end px-2" style="width: 2.5%; min-width: 6%;">
+                            <!-- Destello en la barra -->
+                            <div class="w-2 h-4 bg-white opacity-50 rounded-full"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-right">
+                        <span class="text-sm font-bold text-gray-400 uppercase tracking-widest">2.5% alcanzado</span>
+                    </div>
+                </div>
+
+                <!-- Botón de llamado a la acción (Ancla hacia los formularios) -->
+                <div class="mt-12 relative z-10">
+                    <a href="#involucrate" class="inline-block bg-keep-yellow text-keep-blue font-black uppercase tracking-widest px-10 py-5 rounded-full hover:bg-yellow-400 hover:scale-105 transition-transform shadow-lg border-2 border-keep-yellow">
+                        Donar a esta campaña
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN: PROYECTOS COMPLETADOS Y EN CURSO -->
+    <section id="proyectos" class="py-20 px-4 max-w-7xl mx-auto bg-keep-light scroll-mt-24">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-black text-keep-blue uppercase tracking-wide mb-2">Proyectos Mapeados</h2>
+                <div class="w-20 h-[3px] bg-keep-yellow"></div>
+            </div>
+            <!-- Filtros estilo "Píldora" -->
+            <div class="mt-6 md:mt-0 flex gap-4">
+                <button class="bg-keep-blue text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-blue-900 transition">Completados</button>
+                <button class="bg-white border-2 border-gray-200 text-gray-500 px-6 py-2 rounded-full font-semibold text-sm hover:border-keep-blue hover:text-keep-blue transition">En curso</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Proyecto 1: Asilo -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-shadow duration-300 group">
+                <div class="relative overflow-hidden h-60">
+                    <img src="https://images.unsplash.com/photo-1592833203022-26f96614dc35?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Panel solar en techo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-4 left-4 bg-keep-yellow text-keep-blue text-xs font-black uppercase tracking-wide px-3 py-1 rounded-full shadow">Completado</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl text-keep-blue mb-2">Asilo "Luz de Esperanza"</h3>
+                    <p class="text-gray-500 text-sm mb-4">Instalación de sistema fotovoltaico para iluminación y equipos de monitoreo.</p>
+                    <div class="flex items-center justify-between text-sm font-semibold text-keep-blue border-t border-gray-100 pt-4">
+                        <span class="flex items-center gap-1">📍 Surco, Lima</span>
+                        <span class="flex items-center gap-1">⚡ 15 kW</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 2: Olla Común -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-shadow duration-300 group">
+                <div class="relative overflow-hidden h-60">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Paneles solares" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-4 left-4 bg-[#00AEEF] text-white text-xs font-black uppercase tracking-wide px-3 py-1 rounded-full shadow">En Curso</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl text-keep-blue mb-2">Olla Común "Unidos"</h3>
+                    <p class="text-gray-500 text-sm mb-4">Sistema de energía para garantizar la cadena de frío de los alimentos perecibles.</p>
+                    <div class="flex items-center justify-between text-sm font-semibold text-keep-blue border-t border-gray-100 pt-4">
+                        <span class="flex items-center gap-1">📍 Sullana, Piura</span>
+                        <span class="flex items-center gap-1">⚡ 8 kW</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 3: Albergue -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-shadow duration-300 group">
+                <div class="relative overflow-hidden h-60">
+                    <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Instalación solar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-4 left-4 bg-keep-yellow text-keep-blue text-xs font-black uppercase tracking-wide px-3 py-1 rounded-full shadow">Completado</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl text-keep-blue mb-2">Albergue Infantil "Sonrisas"</h3>
+                    <p class="text-gray-500 text-sm mb-4">Independencia energética para zonas de estudio y recreación de los niños.</p>
+                    <div class="flex items-center justify-between text-sm font-semibold text-keep-blue border-t border-gray-100 pt-4">
+                        <span class="flex items-center gap-1">📍 Callao</span>
+                        <span class="flex items-center gap-1">⚡ 22 kW</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="text-center mt-10">
+            <a href="#" class="inline-block bg-transparent border-2 border-keep-blue text-keep-blue font-bold px-8 py-3 rounded-full hover:bg-keep-blue hover:text-white transition">Ver todos los proyectos</a>
+        </div>
+
+<!-- ========================================== -->
+    <!-- SECCIÓN: MAPA DE PROYECTOS (INTERACTIVO)   -->
+    <!-- ========================================== -->
+    <section id="mapa" class="py-20 px-4 max-w-7xl mx-auto scroll-mt-24">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-black text-keep-blue uppercase tracking-wide mb-4">Nuestra Huella de Impacto</h2>
+            <div class="w-20 h-[3px] bg-keep-yellow mx-auto mb-6"></div>
+            <p class="text-gray-600 font-medium max-w-2xl mx-auto">Explora el mapa para conocer dónde hemos instalado nuestros primeros pilotos y cuáles son nuestros próximos destinos.</p>
+        </div>
+        
+        <!-- Contenedor del Mapa -->
+        <div class="relative w-full h-[500px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg border-4 border-white z-0">
+            
+            <!-- Aquí se dibujará el mapa automáticamente -->
+            <div id="mi-mapa" class="w-full h-full"></div>
+            
+            <!-- Leyenda del mapa flotante -->
+            <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur p-5 rounded-xl shadow-2xl border border-gray-100 z-[1000]">
+                <h4 class="font-bold text-keep-blue mb-3 text-sm uppercase tracking-wide">Estado de Proyectos</h4>
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="w-4 h-4 rounded-full bg-keep-yellow shadow-sm border border-white"></span>
+                    <span class="text-sm font-semibold text-gray-700">Completados</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="w-4 h-4 rounded-full bg-[#00AEEF] shadow-sm border border-white"></span>
+                    <span class="text-sm font-semibold text-gray-700">En Curso</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+ 
+
+   
+<!-- ========================================== -->
+    <!-- SECCIÓN: ALIADOS ESTRATÉGICOS (PARTNERS) -->
+    <!-- ========================================== -->
+    
+    <style>
+        /* Animación para el desplazamiento infinito */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            display: flex;
+        }
+        .marquee-track {
+            display: flex;
+            /* Si quieres que vaya más rápido o más lento, cambia el "30s" */
+            animation: marquee 30s linear infinite;
+        }
+        .marquee-track:hover {
+            /* Opcional: El carrusel se pausa si alguien le pone el mouse encima */
+            animation-play-state: paused; 
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Se desplaza al 50% porque duplicaremos el contenido */
+        }
+        
+        /* Estilo simulando logotipos de instituciones */
+        .partner-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            padding: 0 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+
+    <section class="py-12 bg-white">
+        <!-- Título -->
+        <div class="max-w-7xl mx-auto px-4 mb-8">
+            <h2 class="text-3xl font-black text-keep-blue uppercase tracking-wide text-center md:text-left">Partners</h2>
+        </div>
+        
+        <!-- Franja Azul con Carrusel -->
+        <div class="w-full bg-keep-blue py-10 marquee-container shadow-inner">
+            <div class="marquee-track">
+                
+                <!-- PRIMER GRUPO DE INSTITUCIONES -->
+                <div class="partner-logo">Universidad de Ingeniería y Tecnología <span class="text-keep-yellow ml-2">UTEC</span></div>
+                <div class="partner-logo">Municipalidad de Surco</div>
+                <div class="partner-logo">Banco de Alimentos Perú</div>
+                <div class="partner-logo">Colegio de Ingenieros del Perú</div>
+                <div class="partner-logo">Ministerio de Energía y Minas</div>
+                <div class="partner-logo">Cáritas del Perú</div>
+                
+                <!-- SEGUNDO GRUPO (Copia exacta del primero para hacer el efecto infinito) -->
+                <!-- ¡No borres este grupo! Es el truco visual para que el giro no se corte -->
+                <div class="partner-logo">Universidad de Ingeniería y Tecnología <span class="text-keep-yellow ml-2">UTEC</span></div>
+                <div class="partner-logo">Municipalidad de Surco</div>
+                <div class="partner-logo">Banco de Alimentos Perú</div>
+                <div class="partner-logo">Colegio de Ingenieros del Perú</div>
+                <div class="partner-logo">Ministerio de Energía y Minas</div>
+                <div class="partner-logo">Cáritas del Perú</div>
+
+            </div>
+        </div>
+    </section>
+
+
+ <!-- 5. SECCIÓN INVOLÚCRATE (Formularios Conectados) -->
+    <section id="involucrate" class="py-24 bg-keep-blue text-white px-4 scroll-mt-24">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-wide mb-4">Únete a la causa</h2>
+                <p class="text-lg md:text-xl text-blue-100 font-medium max-w-2xl mx-auto">
+                    Tu energía puede transformar vidas. Elige cómo quieres apoyar los proyectos de Keepwatts.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                
+                <!-- Tarjeta: Formulario de Donación -->
+                <div class="bg-white rounded-2xl p-8 md:p-10 shadow-2xl text-gray-800 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-keep-yellow rounded-bl-full opacity-20"></div>
+                    
+                    <h3 class="text-2xl font-black text-keep-blue mb-2 uppercase tracking-wide">Haz una Donación</h3>
+                    <p class="text-gray-500 mb-8 font-medium">Financia la electrificación de un albergue u olla común.</p>
+                    
+                    <!-- Formulario conectado a Formspree -->
+                    <form action=https://formspree.io/f/xojgwrzl method="POST">
+                        <div class="mb-4">
+                            <input type="text" name="Nombre_Donante" placeholder="Tu nombre" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-keep-yellow font-medium text-gray-700 transition" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" name="Correo_Donante" placeholder="Tu correo electrónico" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-keep-yellow font-medium text-gray-700 transition" required>
+                        </div>
+                        <div class="mb-6">
+                            <input type="number" name="Monto_Donacion" placeholder="Monto a donar (S/)" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-keep-yellow font-medium text-gray-700 transition" required>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-keep-blue text-white font-bold text-lg py-4 rounded-xl hover:bg-blue-900 transition uppercase tracking-wide shadow-lg">
+                            Donar Ahora
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Tarjeta: Formulario de Voluntariado -->
+                <div class="bg-white rounded-2xl p-8 md:p-10 shadow-2xl text-gray-800 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-[#00AEEF] rounded-bl-full opacity-10"></div>
+
+                    <h3 class="text-2xl font-black text-keep-blue mb-2 uppercase tracking-wide">Sé Voluntario</h3>
+                    <p class="text-gray-500 mb-8 font-medium">Únete al equipo técnico o apoya en las capacitaciones.</p>
+                    
+                    <!-- Formulario conectado a Formspree -->
+                    <form action=https://formspree.io/f/xojgwrzl method="POST">
+                        <div class="mb-4">
+                            <input type="text" name="Nombre_Voluntario" placeholder="Nombre completo" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-[#00AEEF] font-medium text-gray-700 transition" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" name="Correo_Voluntario" placeholder="Correo electrónico" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-[#00AEEF] font-medium text-gray-700 transition" required>
+                        </div>
+                        <div class="mb-6">
+                            <select name="Area_Interes" class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-[#00AEEF] font-medium text-gray-700 transition" required>
+                                <option value="" disabled selected>¿En qué área te gustaría apoyar?</option>
+                                <option value="Sistemas_Fotovoltaicos">Mantenimiento de Sistemas Fotovoltaicos</option>
+                                <option value="Residuos_RAEE">Gestión de Residuos RAEE</option>
+                                <option value="Capacitacion">Capacitación y Educación</option>
+                                <option value="Logistica">Logística y Eventos</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-transparent border-2 border-keep-blue text-keep-blue font-bold text-lg py-4 rounded-xl hover:bg-keep-blue hover:text-white transition uppercase tracking-wide mt-2">
+                            Enviar Solicitud
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+<!-- ========================================== -->
+    <!-- SECCIÓN: ÚNETE A NUESTRO ESFUERZO          -->
+    <!-- ========================================== -->
+    <section class="py-20 px-4 bg-keep-light">
+        <div class="max-w-7xl mx-auto">
+            
+            <h2 class="text-2xl md:text-3xl font-black text-keep-blue uppercase mb-10 tracking-wide text-center md:text-left">
+                Únete a nuestro esfuerzo colectivo
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Tarjeta 1: Elegir y Proponer -->
+                <div class="rounded-2xl p-8 bg-keep-yellow text-keep-blue shadow-xl transform hover:-translate-y-2 transition duration-300">
+                    <h3 class="text-3xl font-black mb-3">Elige y Propón</h3>
+                    <p class="font-medium mb-6 text-sm text-gray-800">
+                        ¿Conoces un asilo, albergue u olla común que necesite energía? Registra el lugar aquí para evaluarlo:
+                    </p>
+                    
+                    <form action="AQUI_PEGA_TU_ENLACE_DE_FORMSPREE" method="POST" class="space-y-3">
+                        <input type="text" name="Nombre_Lugar" placeholder="Nombre de la institución" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
+                        
+                        <select name="Tipo_Lugar" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
+                            <option value="" disabled selected>Tipo de lugar</option>
+                            <option value="Asilo">Asilo de ancianos</option>
+                            <option value="Albergue">Albergue de niños</option>
+                            <option value="Olla Comun">Olla común / Vaso de leche</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        
+                        <input type="text" name="Distrito_Ciudad" placeholder="Distrito / Ciudad" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
+                        
+                        <button type="submit" class="w-full bg-keep-blue text-white font-bold text-sm py-3 rounded-xl hover:bg-blue-900 transition uppercase mt-2 shadow-lg">
+                            Proponer Lugar
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Tarjeta 2: Donar (CON YAPE Y PLIN) -->
+                <div class="rounded-2xl p-8 bg-[#00AEEF] text-white shadow-xl transform hover:-translate-y-2 transition duration-300 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-white opacity-10 rounded-full"></div>
+                    
+                    <div class="relative z-10 mb-4">
+                        <h3 class="text-3xl font-black mb-2">Dona o apoya</h3>
+                        <p class="font-medium leading-relaxed text-sm">
+                            Aporta directamente desde tu celular. Tu donación financia equipos fotovoltaicos para las instituciones propuestas.
+                        </p>
+                    </div>
+
+                    <!-- Módulo de Billeteras Digitales -->
+                    <div class="relative z-10 bg-white/20 p-4 rounded-xl backdrop-blur-sm border border-white/30">
+                        <p class="text-xs font-bold uppercase tracking-wide opacity-90 mb-1">Transfiere al número:</p>
+                        <!-- NÚMERO ACTUALIZADO AQUÍ -->
+                        <p class="text-2xl font-black mb-3">946 379 148</p>
+                        
+                        <div class="flex gap-2">
+                            <!-- Botón Yape -->
+                            <button class="flex-1 bg-[#740F6B] text-white font-bold py-2 rounded-lg flex items-center justify-center hover:bg-purple-900 transition shadow-md">
+                                <span class="text-lg">Yape</span>
+                            </button>
+                            <!-- Botón Plin -->
+                            <button class="flex-1 bg-[#00D09B] text-white font-bold py-2 rounded-lg flex items-center justify-center hover:bg-teal-500 transition shadow-md">
+                                <span class="text-lg">Plin</span>
+                            </button>
+                        </div>
+                        <p class="text-[10px] font-semibold uppercase mt-3 text-center opacity-80">A nombre de: Asociación Civil Keepwatts</p>
+                    </div>
+                </div>
+
+               <!-- Tarjeta 3: Impacto (AHORA CON REDES SOCIALES) -->
+                <div class="rounded-2xl p-8 bg-keep-blue text-white shadow-xl transform hover:-translate-y-2 transition duration-300 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-keep-yellow opacity-10 rounded-full"></div>
+                    
+                    <div class="relative z-10 mb-6">
+                        <h3 class="text-3xl font-black mb-4 text-keep-yellow">Genera impacto</h3>
+                        <p class="font-medium leading-relaxed text-lg text-blue-100">
+                            Transforma radicalmente la vida de las comunidades vulnerables, garantizando su cadena de frío, seguridad alimentaria y educación con energía limpia.
+                        </p>
+                    </div>
+
+                    <!-- Módulo de Redes Sociales -->
+                    <div class="relative z-10">
+                        <p class="text-xs font-bold uppercase tracking-wide opacity-80 mb-3 text-keep-yellow">Pasa la voz y comparte:</p>
+                        <div class="flex gap-3">
+                            
+                            <!-- Botón Facebook -->
+                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white hover:text-keep-blue text-white flex items-center justify-center transition-colors duration-300 shadow-sm" title="Compartir en Facebook">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
+                            </a>
+                            
+                            <!-- Botón Instagram -->
+                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white hover:text-keep-blue text-white flex items-center justify-center transition-colors duration-300 shadow-sm" title="Ir a Instagram">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85C2.38 3.86 3.9 2.31 7.15 2.23c1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-4.27.19-6.78 2.71-6.98 6.98C0 8.33 0 8.74 0 12s.01 3.67.07 4.95c.19 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.27-.19 6.78-2.71 6.98-6.98C24 15.67 24 15.26 24 12s-.01-3.67-.07-4.95c-.19-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.83a6.17 6.17 0 100 12.34 6.17 6.17 0 000-12.34zm0 10.16a4 4 0 110-8 4 4 0 010 8zm3.93-8.8a1.44 1.44 0 100-2.88 1.44 1.44 0 000 2.88z"/></svg>
+                            </a>
+                            
+                            <!-- Botón LinkedIn -->
+                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white hover:text-keep-blue text-white flex items-center justify-center transition-colors duration-300 shadow-sm" title="Compartir en LinkedIn">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.56c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.44A2.06 2.06 0 117.4 5.38a2.06 2.06 0 01-2.06 2.06zM7.12 20.45H3.56V9h3.56v11.45zM22 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2z"/></svg>
+                            </a>
+                            
+                            <!-- Botón TikTok -->
+                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white hover:text-keep-blue text-white flex items-center justify-center transition-colors duration-300 shadow-sm" title="Ir a TikTok">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.53.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.61-.6 3.19-1.63 4.39-1.11 1.28-2.73 2.05-4.46 2.15-1.74.1-3.48-.41-4.83-1.42-1.39-1.04-2.28-2.6-2.47-4.31-.19-1.73.31-3.52 1.34-4.88 1.1-1.44 2.78-2.39 4.6-2.58.15-.01.3-.02.46-.02v4.06c-.84.07-1.66.44-2.24 1.05-.59.62-.92 1.48-.88 2.34.04.85.45 1.66 1.1 2.21.64.55 1.5.83 2.36.78.85-.05 1.64-.47 2.19-1.12.56-.66.86-1.54.85-2.42V.02z"/></svg>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+
+
+    <!-- SECCIÓN FOOTER ARREGLADO -->
+    <footer class="bg-white pt-16 pb-8 border-t-2 border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                
+                <!-- Columna 1: Info de la ONG -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="text-keep-yellow text-2xl">☀️</div>
+                        <span class="font-black text-xl text-keep-blue tracking-tight leading-none uppercase">KEEP<br>WATTS</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Asociación Civil Keepwatts. Buscamos fines asistenciales, educativos, ecológicos, de desarrollo social y sostenible con el medio ambiente mediante energías renovables.
+                    </p>
+                </div>
+                
+                <!-- Columna 2: Enlaces Rápidos -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-keep-blue uppercase">Conócenos</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 font-medium">
+                        <li><a href="#" class="hover:text-keep-yellow transition">Sobre Nosotros</a></li>
+                        <li><a href="#" class="hover:text-keep-yellow transition">Nuestro Equipo</a></li>
+                        <li><a href="#" class="hover:text-keep-yellow transition">Proyectos en Curso</a></li>
+                        <li><a href="#" class="hover:text-keep-yellow transition">Transparencia Institucional</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Columna 3: Contacto -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-keep-blue uppercase">Contacto</h4>
+                    <ul class="space-y-3 text-sm text-gray-500 font-medium">
+                        <li class="flex items-start">
+                            <span class="mr-2 text-keep-yellow">📍</span> 
+                            <span>Distrito de Surco,<br>Lima - Perú</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="mr-2 text-keep-yellow">✉️</span> 
+                            <a href="mailto:contacto@keepwatts.org" class="hover:text-keep-blue transition">contacto@keepwatts.org</a>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="mr-2 text-keep-yellow">📞</span> 
+                            <a href="tel:+51999000111" class="hover:text-keep-blue transition">+51 946 379 148</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <!-- Derechos de autor -->
+            <div class="border-t border-gray-200 pt-8 text-center text-sm font-medium text-gray-400">
+                &copy; 2026 Asociación Civil Keepwatts. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DEL MENÚ MÓVIL -->
+    
+    <script>
+        // LÓGICA DEL MENÚ MÓVIL
+        const btnMenu = document.getElementById('mobile-menu-button');
+        const menuMovel = document.getElementById('mobile-menu');
+        const enlacesMoviles = document.querySelectorAll('.mobile-link');
+
+        // Abre/Cierra el menú al tocar la hamburguesa
+        btnMenu.addEventListener('click', () => {
+            menuMovel.classList.toggle('hidden');
+        });
+
+        // Cierra el menú automáticamente al hacer clic en un enlace
+        enlacesMoviles.forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                menuMovel.classList.add('hidden');
+            });
+        });
+        // EFECTO CONTADOR ANIMADO
+        const contadores = document.querySelectorAll('.contador');
+        const velocidad = 100; // Cuanto menor el número, más rápida la animación
+
+        const animarContadores = () => {
+            contadores.forEach(contador => {
+                const actualizarCuenta = () => {
+                    const objetivo = +contador.getAttribute('data-target');
+                    const cuentaActual = +contador.innerText;
+                    
+                    // Calculamos el incremento
+                    const incremento = objetivo / velocidad;
+
+                    if (cuentaActual < objetivo) {
+                        // Subimos el número y volvemos a llamar la función
+                        contador.innerText = Math.ceil(cuentaActual + incremento);
+                        setTimeout(actualizarCuenta, 20);
+                    } else {
+                        // Nos aseguramos de que termine exactamente en el número objetivo
+                        contador.innerText = objetivo;
+                    }
+                };
+                actualizarCuenta();
+            });
+        };
+
+        // Iniciamos la animación (idealmente esto se activa al hacer scroll, 
+        // pero por ahora lo iniciamos directamente al cargar para que veas el efecto)
+        animarContadores();
+
+        // ==========================================
+        // LÓGICA DEL MAPA INTERACTIVO (LEAFLET)
+        // ==========================================
+        
+        // 1. Creamos el mapa y lo centramos en el centro de Perú (Latitud: -9.18, Longitud: -75.01)
+        const map = L.map('mi-mapa', {
+            zoomControl: false // Ocultamos los botones de zoom por defecto
+        }).setView([-9.18, -75.01], 5.5);
+
+        // Reubicamos el botón de zoom arriba a la derecha
+        L.control.zoom({ position: 'topright' }).addTo(map);
+
+        // 2. Cargamos el diseño del mapa (usamos un diseño claro y moderno)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // 3. Diseñamos nuestros puntos (marcadores) con los colores de Keepwatts
+        const puntoCompletado = L.divIcon({
+            className: 'custom-icon',
+            html: "<div style='background-color:#FBBF24; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.3);'></div>",
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+
+        const puntoEnCurso = L.divIcon({
+            className: 'custom-icon',
+            html: "<div style='background-color:#00AEEF; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.3);'></div>",
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+
+        // 4. Colocamos los 3 proyectos piloto en el mapa
+
+        // Piloto 1: Surco, Lima 
+        L.marker([-12.135, -76.994], {icon: puntoCompletado}).addTo(map)
+            .bindPopup('<b style="color:#124A7A; font-size:14px;">Asilo "Luz de Esperanza"</b><br>📍 Surco, Lima<br><span style="color:#FBBF24; font-weight:bold;">Completado</span>');
+
+        // Piloto 2: Callao 
+        L.marker([-12.056, -77.118], {icon: puntoCompletado}).addTo(map)
+            .bindPopup('<b style="color:#124A7A; font-size:14px;">Albergue "Sonrisas"</b><br>📍 Callao<br><span style="color:#FBBF24; font-weight:bold;">Completado</span>');
+
+        // Piloto 3: Sullana, Piura 
+        L.marker([-4.896, -80.683], {icon: puntoEnCurso}).addTo(map)
+            .bindPopup('<b style="color:#124A7A; font-size:14px;">Olla Común "Unidos"</b><br>📍 Sullana, Piura<br><span style="color:#00AEEF; font-weight:bold;">En Curso</span>');
+    </script>
+
+    <!-- ========================================== -->
+    <!-- BOTÓN FLOTANTE DE WHATSAPP                 -->
+    <!-- ========================================== -->
+    
+    <!-- Reemplaza el número 51999000111 por el número real -->
+    <a href="https://wa.me/51946379148?text=Hola,%20vengo%20de%20la%20página%20web%20y%20quisiera%20más%20información%20sobre%20Keepwatts." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 z-50 flex items-center justify-center group">
+        
+        <!-- Etiqueta de texto emergente (Tooltip) que aparece al pasar el ratón -->
+        <span class="absolute right-16 bg-white text-gray-700 text-sm font-bold py-2 px-4 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+            ¡Escríbenos!
+        </span>
+
+        <!-- Ícono SVG Oficial de WhatsApp -->
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        </svg>
+    </a>
+</body>
+</html>
