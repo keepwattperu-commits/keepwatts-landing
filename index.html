@@ -81,21 +81,37 @@
         </div>
     </nav>
 
-    <!-- 3. SECCIÓN HERO (Fondo con overlay azul y texto centrado) -->
-    <!-- Nota: La imagen de fondo es un placeholder de paneles solares, puedes cambiar la URL luego -->
-    <section class="relative bg-[url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center h-[80vh] min-h-[500px] flex items-center justify-center mt-20">
+    <!-- 3. SECCIÓN HERO CON CARRUSEL DE IMÁGENES -->
+    <section class="relative h-[80vh] min-h-[500px] flex items-center justify-center mt-16 overflow-hidden">
         
-        <!-- Overlay azul semitransparente -->
-        <div class="absolute inset-0 bg-keep-blue/80"></div> 
+        <!-- Contenedor de Imágenes (El script cambiará la opacidad suavemente) -->
+        <div id="hero-bg-0" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-100" style="background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+        
+        <div id="hero-bg-1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-0" style="background-image: url('https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+        
+        <div id="hero-bg-2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-0" style="background-image: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+
+        <!-- Overlay azul semitransparente (Para que el texto resalte) -->
+        <div class="absolute inset-0 bg-keep-blue/70 z-10"></div> 
         
         <!-- Contenido principal -->
-        <div class="relative z-10 max-w-4xl px-4 text-center">
-            <h1 class="text-5xl md:text-7xl font-black text-white mb-6 tracking-wide uppercase">
-                Keep<br>Watts
+        <div class="relative z-20 max-w-4xl px-4 text-center mt-10">
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-6 tracking-wide uppercase drop-shadow-lg">
+                Iluminando<br><span class="text-keep-yellow">Futuros</span>
             </h1>
-            <p class="text-lg md:text-2xl text-white font-medium max-w-2xl mx-auto leading-relaxed">
-                Instalando sistemas solares esenciales en asilos, albergues y otras instituciones de forma gratuita
+            <p class="text-lg md:text-2xl text-white font-medium max-w-2xl mx-auto leading-relaxed mb-10 drop-shadow-md">
+                Llevamos energía solar a instituciones que más lo necesitan, transformando la infraestructura humanitaria de forma sostenible.
             </p>
+            
+            <!-- Botones de Acción -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#proyectos" class="w-full sm:w-auto bg-keep-yellow text-keep-blue font-black px-8 py-4 rounded-full hover:bg-yellow-400 hover:scale-105 transition-all shadow-lg uppercase tracking-wide">
+                    Ver Proyectos
+                </a>
+                <a href="#involucrate" class="w-full sm:w-auto bg-transparent border-2 border-white text-white font-bold px-8 py-4 rounded-full hover:bg-white hover:text-keep-blue hover:scale-105 transition-all shadow-lg uppercase tracking-wide">
+                    Súmate a la causa
+                </a>
+            </div>
         </div>
     </section>
 
@@ -646,6 +662,25 @@
         // Iniciamos la animación (idealmente esto se activa al hacer scroll, 
         // pero por ahora lo iniciamos directamente al cargar para que veas el efecto)
         animarContadores();
+
+// ==========================================
+        // LÓGICA DEL CARRUSEL DEL HERO
+        // ==========================================
+        const totalImages = 3; // Tenemos 3 imágenes
+        let currentImage = 0;
+
+        setInterval(() => {
+            // 1. Ocultar la imagen actual
+            document.getElementById(`hero-bg-${currentImage}`).classList.remove('opacity-100');
+            document.getElementById(`hero-bg-${currentImage}`).classList.add('opacity-0');
+            
+            // 2. Pasar a la siguiente imagen (si llega al final, vuelve a 0)
+            currentImage = (currentImage + 1) % totalImages;
+            
+            // 3. Mostrar la nueva imagen
+            document.getElementById(`hero-bg-${currentImage}`).classList.remove('opacity-0');
+            document.getElementById(`hero-bg-${currentImage}`).classList.add('opacity-100');
+        }, 5000); // Cambia de imagen cada 5 segundos (5000 milisegundos)
 
    // ==========================================
         // LÓGICA DEL MAPA INTERACTIVO (LEAFLET)
