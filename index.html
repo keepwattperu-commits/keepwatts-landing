@@ -299,60 +299,26 @@
     </section>
 
 
- 
+  <!-- SECCIÓN: GALERÍA DE EVALUACIÓN DE CAMPO (CARRUSEL AUTOMÁTICO) -->
+    <style>
+        /* Ocultar barra de desplazamiento para un look más limpio */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 
-   
-
-    <!-- SECCIÓN: GALERÍA DE EVALUACIÓN DE CAMPO -->
-    <section id="proyectos" class="py-20 px-4 max-w-7xl mx-auto bg-keep-light scroll-mt-24">
+    <section id="proyectos" class="py-20 bg-keep-light scroll-mt-24 overflow-hidden">
         
-        <!-- Encabezado de la Sección -->
-        <div class="text-center mb-12">
+        <div class="text-center mb-10 max-w-7xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-black text-keep-blue uppercase tracking-wide mb-2">Evaluación de Campo</h2>
             <div class="w-20 h-[3px] bg-keep-yellow mx-auto mb-6"></div>
             <p class="text-gray-600 font-medium max-w-2xl mx-auto text-lg leading-relaxed">
-                Actualmente recorremos diversas instituciones para analizar sus necesidades energéticas. Conoce algunas de las comunidades que hemos visitado como candidatas para nuestros primeros sistemas solares.
+                Actualmente recorremos diversas instituciones para analizar sus necesidades energéticas. Conoce nuestras visitas técnicas.
             </p>
         </div>
 
-        <!-- Galería Grid (3 Columnas) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            
-            <!-- Visita 1 -->
-            <div class="relative group rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 h-72 cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1592833203022-26f96614dc35?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Visita Asilo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                <!-- Filtro oscuro que aparece al hacer hover -->
-                <div class="absolute inset-0 bg-gradient-to-t from-keep-blue/90 via-keep-blue/30 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <!-- Textos -->
-                <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <span class="bg-keep-yellow text-keep-blue text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block shadow-md">Visita Técnica</span>
-                    <h3 class="font-bold text-white text-2xl leading-tight">Asilo Luz de Esperanza</h3>
-                    <p class="text-blue-100 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">📍 Surco, Lima</p>
-                </div>
-            </div>
-
-            <!-- Visita 2 -->
-            <div class="relative group rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 h-72 cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Visita Olla Común" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-keep-blue/90 via-keep-blue/30 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <span class="bg-white text-keep-blue text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block shadow-md">Inspección</span>
-                    <h3 class="font-bold text-white text-2xl leading-tight">Olla Común Unidos</h3>
-                    <p class="text-blue-100 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">📍 Sullana, Piura</p>
-                </div>
-            </div>
-
-            <!-- Visita 3 -->
-            <div class="relative group rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 h-72 cursor-pointer">
-                <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Visita Albergue" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-keep-blue/90 via-keep-blue/30 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <span class="bg-[#00AEEF] text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-3 inline-block shadow-md">Candidato</span>
-                    <h3 class="font-bold text-white text-2xl leading-tight">Albergue Infantil</h3>
-                    <p class="text-blue-100 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">📍 Callao</p>
-                </div>
-            </div>
-
+        <!-- Contenedor del Carrusel (Se llenará mágicamente con JavaScript) -->
+        <div id="carrusel-visitas" class="flex overflow-x-auto gap-4 pb-8 px-4 md:px-10 hide-scrollbar cursor-grab active:cursor-grabbing">
+            <!-- Las 24 fotos se inyectarán aquí -->
         </div>
     </section>
 
@@ -709,6 +675,95 @@
         // Piloto 3: Sullana, Piura 
         L.marker([-4.896, -80.683], {icon: puntoEnCurso}).addTo(map)
             .bindPopup('<b style="color:#124A7A; font-size:14px;">Olla Común "Unidos"</b><br>📍 Sullana, Piura<br><span style="color:#00AEEF; font-weight:bold;">En Curso</span>');
+  
+ // ==========================================
+        // GENERADOR DE 24 FOTOS Y CARRUSEL AUTOMÁTICO
+        // ==========================================
+        const slider = document.getElementById('carrusel-visitas');
+
+        if (slider) {
+            // 1. Crear las 24 tarjetas automáticamente buscando visita1.jpg hasta visita24.jpg
+            let contenidoHTML = '';
+            
+            // Textos y colores que rotarán para que la galería no se vea repetitiva
+            const etiquetas = ['Visita Técnica', 'Inspección', 'Candidato'];
+            const colores = ['bg-keep-yellow text-keep-blue', 'bg-white text-keep-blue', 'bg-[#00AEEF] text-white'];
+
+            for (let i = 1; i <= 24; i++) {
+                let estilo = (i - 1) % 3; // Alterna entre 0, 1 y 2
+                
+                contenidoHTML += `
+                <div class="relative flex-none w-[85vw] sm:w-[320px] h-72 group rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                    <img src="visita${i}.jpg" alt="Visita ${i}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-keep-blue/90 via-keep-blue/20 to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <span class="${colores[estilo]} text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-2 inline-block">
+                            ${etiquetas[estilo]}
+                        </span>
+                        <h3 class="font-bold text-white text-xl leading-tight">Comunidad Evaluada ${i}</h3>
+                    </div>
+                </div>`;
+            }
+            // Inyectamos las 24 fotos en el HTML
+            slider.innerHTML = contenidoHTML;
+
+            // 2. Lógica de Arrastre con el Mouse
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+
+            // 3. Movimiento Automático (Auto-play)
+            let velocidadScroll = 1; // Pixeles que se mueve por fotograma
+            
+            let autoScroll = setInterval(() => {
+                if (!isDown) { // Solo se mueve si el usuario no lo está arrastrando
+                    slider.scrollLeft += velocidadScroll;
+                    
+                    // Si llega al final, regresa al inicio de golpe
+                    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1) {
+                        slider.scrollLeft = 0;
+                    }
+                }
+            }, 20); // 20 milisegundos crea un movimiento fluido
+
+            // Pausar el carrusel cuando el usuario pone el mouse encima
+            slider.addEventListener('mouseenter', () => clearInterval(autoScroll));
+            
+            // Reanudar el carrusel cuando el usuario quita el mouse
+            slider.addEventListener('mouseleave', () => {
+                autoScroll = setInterval(() => {
+                    if (!isDown) {
+                        slider.scrollLeft += velocidadScroll;
+                        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1) {
+                            slider.scrollLeft = 0;
+                        }
+                    }
+                }, 20);
+            });
+        }
+  
     </script>
 
     <!-- ========================================== -->
