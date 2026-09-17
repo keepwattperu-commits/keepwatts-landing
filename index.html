@@ -271,7 +271,6 @@
             </div>
         </div>
     </section>
-
 <!-- ========================================== -->
     <!-- SECCIÓN: PILARES DE IMPACTO (COMPROMISO)   -->
     <!-- ========================================== -->
@@ -351,7 +350,6 @@
             </div>
         </div>
     </section>
-
 <!-- ========================================== -->
     <!-- SECCIÓN: MAPA DE PROYECTOS (INTERACTIVO)   -->
     <!-- ========================================== -->
@@ -382,7 +380,6 @@
             </div>
         </div>
     </section>
-
 
   <!-- SECCIÓN: GALERÍA DE EVALUACIÓN DE CAMPO (CARRUSEL AUTOMÁTICO) -->
     <style>
@@ -417,6 +414,63 @@
         <img id="imagen-maximizada" src="" alt="Foto ampliada" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl transform scale-95 transition-all duration-300">
     </div>
 
+    <!-- ========================================== -->
+    <!-- SECCIÓN: LA PROPUESTA KEEPWATTS            -->
+    <!-- ========================================== -->
+    <section id="propuesta" class="py-24 bg-keep-light border-y border-gray-200 px-4">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+                
+                <!-- Columna Izquierda: Texto de la Propuesta -->
+                <div class="lg:col-span-1 space-y-6">
+                    <span class="bg-keep-yellow text-keep-blue text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">Caso de Estudio</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-keep-blue uppercase tracking-wide leading-tight">
+                        La Propuesta <br><span class="text-[#00AEEF]">KeepWatts</span>
+                    </h2>
+                    <div class="w-16 h-[3px] bg-keep-yellow"></div>
+                    <p class="text-gray-600 font-medium text-base leading-relaxed">
+                        Nuestra solución va más allá de instalar paneles. Diseñamos ecosistemas energéticos integrales para lugares vulnerables como la <strong>Olla Común "Las Divinas" en San Juan de Lurigancho</strong>. 
+                    </p>
+                    <p class="text-gray-600 font-medium text-base leading-relaxed">
+                        Con este prototipo demostramos el <strong>Antes y Después</strong>: transformamos infraestructuras precarias y sin energía en centros comunitarios modernos, equipados con generación solar, almacenamiento en baterías de litio e iluminación LED.
+                    </p>
+                    
+                    <!-- Lista de beneficios -->
+                    <ul class="space-y-3 mt-4">
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700">
+                            <span class="text-[#00AEEF] text-lg">✓</span> Energía limpia 24/7
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700">
+                            <span class="text-[#00AEEF] text-lg">✓</span> Cadena de frío asegurada
+                        </li>
+                        <li class="flex items-center gap-3 text-sm font-bold text-gray-700">
+                            <span class="text-[#00AEEF] text-lg">✓</span> Ahorro en costos operativos
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Columna Derecha: Imagen del Proyecto -->
+                <div class="lg:col-span-2 relative group cursor-pointer">
+                    <!-- Efecto de brillo de fondo al pasar el mouse -->
+                    <div class="absolute -inset-2 bg-gradient-to-r from-keep-blue to-[#00AEEF] rounded-3xl opacity-0 group-hover:opacity-30 transition duration-500 blur-lg"></div>
+                    
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                        <!-- Imagen conectada a nuestro visualizador modal -->
+                        <img src="propuesta-divinas.jpg" data-src="propuesta-divinas.jpg" alt="Propuesta Olla Común Las Divinas" class="imagen-click w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-500">
+                        
+                        <!-- Etiqueta flotante indicando que se puede ampliar -->
+                        <div class="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm text-white text-xs font-bold px-4 py-2 rounded-full pointer-events-none flex items-center gap-2 shadow-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                            Clic para ampliar
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 <!-- ========================================== -->
     <!-- SECCIÓN: EXPERIENCIA CORPORATIVA (PRIVADA) -->
     <!-- ========================================== -->
@@ -439,8 +493,6 @@
             
         </div>
     </section>
-
-    
 
  <!-- 5. SECCIÓN INVOLÚCRATE (Formularios Conectados) -->
     <section id="involucrate" class="py-24 bg-keep-blue text-white px-4 scroll-mt-24">
@@ -1034,6 +1086,34 @@
             });
         }
 
+        // ==========================================
+        // ACTIVAR MODAL PARA LA IMAGEN DE PROPUESTA
+        // ==========================================
+        const imagenPropuesta = document.querySelector('#propuesta .imagen-click');
+        
+        if (imagenPropuesta) {
+            imagenPropuesta.addEventListener('click', (e) => {
+                const modal = document.getElementById('modal-foto');
+                const imgMaximizada = document.getElementById('imagen-maximizada');
+                
+                if (modal && imgMaximizada) {
+                    // Copiamos la ruta de la imagen
+                    const src = e.target.getAttribute('data-src');
+                    imgMaximizada.src = src;
+                    
+                    // Quitamos la clase 'hidden' para que aparezca la caja
+                    modal.classList.remove('hidden');
+                    
+                    // Pequeño retraso para que la animación de aparecer sea suave
+                    setTimeout(() => {
+                        modal.classList.remove('opacity-0');
+                        modal.classList.add('opacity-100');
+                        imgMaximizada.classList.remove('scale-95');
+                        imgMaximizada.classList.add('scale-100');
+                    }, 10);
+                }
+            });
+        }
 
     </script>
 
