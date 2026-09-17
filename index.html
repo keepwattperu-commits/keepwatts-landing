@@ -260,7 +260,7 @@
                 <img src="logo-minem.jpg" alt="Ministerio de Energía y Minas" class="partner-img" title="Ministerio de Energía y Minas">
                 <img src="logo-caritas.jpg" alt="Cáritas del Perú" class="partner-img" title="Cáritas del Perú">
                 
-                <!-- SEGUNDO GRUPO (Copia exacta para el efecto infinito) -->
+                <!-- SEGUNDO GRUPO (Copia exacta para el efecto infinito) --> 
                 <img src="logo-utec.jpg" alt="UTEC" class="partner-img" title="Universidad de Ingeniería y Tecnología">
                 <img src="logo-surco.jpg" alt="Municipalidad de Surco" class="partner-img" title="Municipalidad de Surco">
                 <img src="logo-banco.jpg" alt="Banco de Alimentos Perú" class="partner-img" title="Banco de Alimentos Perú">
@@ -675,10 +675,10 @@
         // LÓGICA DEL MAPA INTERACTIVO (LEAFLET)
         // ==========================================
         
-        // 1. Creamos el mapa y lo centramos en el centro de Perú (Latitud: -9.18, Longitud: -75.01)
+        // 1. Creamos el mapa y lo centramos en San Juan de Lurigancho (SJL)
         const map = L.map('mi-mapa', {
-            zoomControl: false // Ocultamos los botones de zoom por defecto
-        }).setView([-9.18, -75.01], 5.5);
+            zoomControl: false
+        }).setView([-11.983, -77.001], 12.5); // Zoom ajustado a nivel de distrito
 
         // Reubicamos el botón de zoom arriba a la derecha
         L.control.zoom({ position: 'topright' }).addTo(map);
@@ -689,34 +689,63 @@
             attribution: '&copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
         }).addTo(map);
 
-        // 3. Diseñamos nuestros puntos (marcadores) con los colores de Keepwatts
-        const puntoCompletado = L.divIcon({
+       // 3. Diseñamos nuestros puntos (marcadores)
+        // Renombramos las variables para que coincidan con tu leyenda actual
+        const puntoPotencial = L.divIcon({
             className: 'custom-icon',
             html: "<div style='background-color:#FBBF24; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.3);'></div>",
             iconSize: [20, 20],
             iconAnchor: [10, 10]
         });
 
-        const puntoEnCurso = L.divIcon({
+        const puntoFactibilidad = L.divIcon({
             className: 'custom-icon',
             html: "<div style='background-color:#00AEEF; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.3);'></div>",
             iconSize: [20, 20],
             iconAnchor: [10, 10]
         });
 
-        // 4. Colocamos los 3 proyectos piloto en el mapa
-        // Piloto 1: Surco, Lima 
-        L.marker([-12.135, -76.994], {icon: puntoCompletado}).addTo(map)
-            .bindPopup('<b style="color:#124A7A; font-size:14px;">Asilo "Luz de Esperanza"</b><br>📍 Surco, Lima<br><span style="color:#FBBF24; font-weight:bold;">Completado</span>');
+        // 4. LISTA DE COMEDORES (Base de datos local)
+        // Aquí puedes poner cientos de lugares de forma muy ordenada
+        const ubicaciones = [
+            { nombre: 'Olla Común "Unidos"', lat: -4.896, lng: -80.683, ubi: "Sullana, Piura", estado: "factibilidad" },
+            { nombre: 'Comedor "Luz de Esperanza"', lat: -12.135, lng: -76.994, ubi: "Surco, Lima", estado: "potencial" },
+            { nombre: 'Albergue "Sonrisas"', lat: -12.056, lng: -77.118, ubi: "Callao", estado: "potencial" },
+            
+            // ¡Nuevos puntos de prueba agregados por todo el Perú!
+            { nombre: 'Comedor "Virgen de Chapi"', lat: -16.409, lng: -71.537, ubi: "Arequipa", estado: "potencial" },
+            { nombre: 'Olla Común "Inti Raymi"', lat: -13.531, lng: -71.967, ubi: "Cusco", estado: "factibilidad" },
+            { nombre: 'Comedor "Selva Mía"', lat: -3.749, lng: -73.253, ubi: "Iquitos, Loreto", estado: "potencial" },
+            { nombre: 'Olla Común "Corazón de Jesús"', lat: -8.115, lng: -79.025, ubi: "Trujillo, La Libertad", estado: "potencial" },
+            { nombre: 'Comedor "Nuevo Amanecer"', lat: -15.840, lng: -70.021, ubi: "Puno", estado: "factibilidad" },
+            { nombre: 'Comedor "Sol Radiante"', lat: -14.072, lng: -75.728, ubi: "Ica", estado: "potencial" },
+            { nombre: 'Olla Común "Mujeres Emprendedoras"', lat: -11.983, lng: -77.011, ubi: "San Juan de Lurigancho, Lima", estado: "factibilidad" },
+            // Zona Canto Grande
+            { nombre: 'Olla Común "Esperanza Viva"', lat: -11.968, lng: -77.005, ubi: "Canto Grande, SJL", estado: "potencial" },
+            // Zona Bayóvar
+            { nombre: 'Comedor "Niños del Futuro"', lat: -11.954, lng: -77.001, ubi: "Bayóvar, SJL", estado: "factibilidad" },
+            // Zona Huáscar
+            { nombre: 'Olla Común "Manos Unidas"', lat: -11.975, lng: -76.985, ubi: "Huáscar, SJL", estado: "potencial" },
+            // Zona Zárate
+            { nombre: 'Comedor "Madres Luchadoras"', lat: -12.023, lng: -76.995, ubi: "Zárate, SJL", estado: "factibilidad" },
+            // Zona Campoy
+            { nombre: 'Comedor "Virgen del Carmen"', lat: -12.012, lng: -76.980, ubi: "Campoy, SJL", estado: "potencial" }
+          
 
-        // Piloto 2: Callao 
-        L.marker([-12.056, -77.118], {icon: puntoCompletado}).addTo(map)
-            .bindPopup('<b style="color:#124A7A; font-size:14px;">Albergue "Sonrisas"</b><br>📍 Callao<br><span style="color:#FBBF24; font-weight:bold;">Completado</span>');
+        ];
 
-        // Piloto 3: Sullana, Piura 
-        L.marker([-4.896, -80.683], {icon: puntoEnCurso}).addTo(map)
-            .bindPopup('<b style="color:#124A7A; font-size:14px;">Olla Común "Unidos"</b><br>📍 Sullana, Piura<br><span style="color:#00AEEF; font-weight:bold;">En Curso</span>');
-  
+        // 5. Motor automático: Dibuja todos los puntos de la lista sola
+        ubicaciones.forEach(lugar => {
+            // Decide qué color de punto usar según el estado
+            let iconoUsar = lugar.estado === "potencial" ? puntoPotencial : puntoFactibilidad;
+            let colorTexto = lugar.estado === "potencial" ? "#FBBF24" : "#00AEEF";
+            let textoEstado = lugar.estado === "potencial" ? "Potencial" : "En factibilidad";
+
+            // Crea el marcador en el mapa
+            L.marker([lugar.lat, lugar.lng], {icon: iconoUsar}).addTo(map)
+                .bindPopup(`<b style="color:#124A7A; font-size:14px;">${lugar.nombre}</b><br>📍 ${lugar.ubi}<br><span style="color:${colorTexto}; font-weight:bold;">${textoEstado}</span>`);
+        });
+
  // ==========================================
         // GENERADOR DE 40 FOTOS, CARRUSEL RÁPIDO Y MODAL
         // ==========================================
