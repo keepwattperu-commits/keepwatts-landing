@@ -518,167 +518,195 @@
 <!-- ========================================== -->
     <!-- SECCIÓN: ÚNETE A NUESTRO ESFUERZO          -->
     <!-- ========================================== -->
-    <section class="py-20 px-4 bg-keep-light">
+    <section class="py-24 px-4 bg-keep-light border-t border-gray-200">
         <div class="max-w-7xl mx-auto">
             
-            <h2 class="text-2xl md:text-3xl font-black text-keep-blue uppercase mb-10 tracking-wide text-center md:text-left">
-                Únete a nuestro esfuerzo colectivo
-            </h2>
+            <!-- Encabezado -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-black text-keep-blue uppercase mb-4 tracking-wide">
+                    Únete a nuestro esfuerzo colectivo
+                </h2>
+                <div class="w-24 h-[3px] bg-keep-yellow mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg font-medium max-w-2xl mx-auto">
+                    La transición energética necesita de todos. Elige la forma que mejor se adapte a ti y ayúdanos a llevar luz a quienes más lo necesitan.
+                </p>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Cuadrícula de 3 Opciones -->
+            <!-- Usamos items-stretch para que las 3 tarjetas tengan exactamente la misma altura -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
                 
-                <!-- Tarjeta 1: Elegir y Proponer -->
-                <div class="rounded-2xl p-8 bg-keep-yellow text-keep-blue shadow-xl transform hover:-translate-y-2 transition duration-300">
-                    <h3 class="text-3xl font-black mb-3">Elige y Sugiere</h3>
-                    <p class="font-medium mb-6 text-sm text-gray-800">
-                        ¿Conoces un asilo, albergue u olla común que necesite energía? Registra el lugar aquí para evaluarlo:
+                <!-- Tarjeta 1: Postular (Amarillo) -->
+                <div class="rounded-3xl p-8 md:p-10 bg-keep-yellow text-keep-blue shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col">
+                    <h3 class="text-2xl font-black mb-3 uppercase tracking-wide">1. Postula un Proyecto</h3>
+                    <p class="font-medium mb-8 text-sm text-gray-800 leading-relaxed flex-grow">
+                        ¿Conoces un asilo, albergue u olla común sin acceso confiable a energía? Regístralo para que nuestro equipo técnico lo evalúe.
                     </p>
                     
-                    <form action="AQUI_PEGA_TU_ENLACE_DE_FORMSPREE" method="POST" class="space-y-3">
-                        <input type="text" name="Nombre_Lugar" placeholder="Nombre de la institución" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
+                    <!-- Formulario conectado a tu Formspree real -->
+                    <form action="https://formspree.io/f/xojgwrzl" method="POST" class="space-y-4">
+                        <input type="text" name="Nombre_Lugar_Propuesto" placeholder="Nombre de la institución" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
                         
-                        <select name="Tipo_Lugar" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
-                            <option value="" disabled selected>Tipo de lugar</option>
+                        <select name="Tipo_Lugar_Propuesto" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
+                            <option value="" disabled selected>Selecciona el tipo de lugar</option>
                             <option value="Asilo">Asilo de ancianos</option>
                             <option value="Albergue">Albergue de niños</option>
                             <option value="Olla Comun">Olla común / Vaso de leche</option>
+                            <option value="Comunidad">Comunidad Rural</option>
                             <option value="Otro">Otro</option>
                         </select>
                         
-                        <input type="text" name="Distrito_Ciudad" placeholder="Distrito / Ciudad" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
+                        <input type="text" name="Ubicacion_Lugar" placeholder="Distrito / Ciudad" class="w-full rounded-xl px-4 py-3 text-sm text-gray-800 font-medium border-0 focus:ring-4 focus:ring-white shadow-inner" required>
                         
-                        <button type="submit" class="w-full bg-keep-blue text-white font-bold text-sm py-3 rounded-xl hover:bg-blue-900 transition uppercase mt-2 shadow-lg">
-                            Proponer Lugar
+                        <button type="submit" class="w-full bg-keep-blue text-white font-bold text-sm py-3 rounded-xl hover:bg-blue-900 transition-colors uppercase mt-2 shadow-md">
+                            Enviar Propuesta
                         </button>
                     </form>
                 </div>
 
-                <!-- Tarjeta 2: Donar (CON YAPE Y PLIN) -->
-                <div class="rounded-2xl p-8 bg-[#00AEEF] text-white shadow-xl transform hover:-translate-y-2 transition duration-300 flex flex-col justify-between relative overflow-hidden">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-white opacity-10 rounded-full"></div>
+                <!-- Tarjeta 2: Donar Yape/Plin (Celeste) -->
+                <div class="rounded-3xl p-8 md:p-10 bg-[#00AEEF] text-white shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col relative overflow-hidden">
+                    <!-- Figura decorativa de fondo -->
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full pointer-events-none"></div>
                     
-                    <div class="relative z-10 mb-4">
-                        <h3 class="text-3xl font-black mb-2">Dona o apoya</h3>
-                        <p class="font-medium leading-relaxed text-sm">
-                            Aporta directamente desde tu celular. Tu donación financia equipos fotovoltaicos para las instituciones propuestas.
-                        </p>
-                    </div>
+                    <h3 class="relative z-10 text-2xl font-black mb-3 uppercase tracking-wide">2. Aporta a la Causa</h3>
+                    <p class="relative z-10 font-medium mb-8 text-sm leading-relaxed flex-grow">
+                        Aporta directamente desde tu celular. El 100% de tu donación se destina a la compra de paneles, inversores y baterías para las comunidades.
+                    </p>
 
-                    <!-- Módulo de Billeteras Digitales -->
-                    <div class="relative z-10 bg-white/20 p-4 rounded-xl backdrop-blur-sm border border-white/30">
-                        <p class="text-xs font-bold uppercase tracking-wide opacity-90 mb-1">Transfiere al número:</p>
-                        <!-- NÚMERO ACTUALIZADO AQUÍ -->
-                        <p class="text-2xl font-black mb-3">903 397 177</p>
+                    <!-- Módulo de Billeteras Digitales unificado -->
+                    <div class="relative z-10 bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20 text-center">
+                        <p class="text-xs font-bold uppercase tracking-widest opacity-90 mb-2">Transfiere al número oficial:</p>
+                        <p class="text-3xl font-black mb-6 tracking-wider">903 397 177</p>
                         
-                        <div class="flex gap-2">
-                            <!-- Botón Yape -->
-                            <button class="flex-1 bg-[#740F6B] text-white font-bold py-2 rounded-lg flex items-center justify-center hover:bg-purple-900 transition shadow-md">
-                                <span class="text-lg">Yape</span>
-                            </button>
-                            <!-- Botón Plin -->
-                            <button class="flex-1 bg-[#00D09B] text-white font-bold py-2 rounded-lg flex items-center justify-center hover:bg-teal-500 transition shadow-md">
-                                <span class="text-lg">Plin</span>
-                            </button>
-                        </div>
-                        <p class="text-[10px] font-semibold uppercase mt-3 text-center opacity-80">A nombre de: Asociación Civil Keepwatts</p>
-                    </div>
-                </div>
-
-               <!-- Tarjeta 3: Impacto (AHORA CON REDES SOCIALES) -->
-                <div class="rounded-2xl p-8 bg-keep-blue text-white shadow-xl transform hover:-translate-y-2 transition duration-300 flex flex-col justify-between relative overflow-hidden">
-                    <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-keep-yellow opacity-10 rounded-full"></div>
-                    
-                    <div class="relative z-10 mb-6">
-                        <h3 class="text-3xl font-black mb-4 text-keep-yellow">Genera impacto</h3>
-                        <p class="font-medium leading-relaxed text-lg text-blue-100">
-                            Transforma radicalmente la vida de las comunidades vulnerables, garantizando su cadena de frío, seguridad alimentaria y educación con energía limpia.
-                        </p>
-                    </div>
-
-                    <!-- Módulo de Redes Sociales -->
-                    <div class="relative z-10">
-                        <p class="text-xs font-bold uppercase tracking-wide opacity-80 mb-3 text-keep-yellow">Pasa la voz y comparte:</p>
                         <div class="flex gap-3">
-                            
-                            <!-- Botón Facebook -->
-                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white hover:text-keep-blue text-white flex items-center justify-center transition-colors duration-300 shadow-sm" title="Compartir en Facebook">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
-                            </a>
-                            
-                            <!-- Botón Instagram -->
-                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white hover:text-keep-blue text-white flex items-center justify-center transition-colors duration-300 shadow-sm" title="Ir a Instagram">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85C2.38 3.86 3.9 2.31 7.15 2.23c1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-4.27.19-6.78 2.71-6.98 6.98C0 8.33 0 8.74 0 12s.01 3.67.07 4.95c.19 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.27-.19 6.78-2.71 6.98-6.98C24 15.67 24 15.26 24 12s-.01-3.67-.07-4.95c-.19-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.83a6.17 6.17 0 100 12.34 6.17 6.17 0 000-12.34zm0 10.16a4 4 0 110-8 4 4 0 010 8zm3.93-8.8a1.44 1.44 0 100-2.88 1.44 1.44 0 000 2.88z"/></svg>
-                            </a>
-                            
-                            <!-- Botón LinkedIn -->
-                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white hover:text-keep-blue text-white flex items-center justify-center transition-colors duration-300 shadow-sm" title="Compartir en LinkedIn">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.56c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.44A2.06 2.06 0 117.4 5.38a2.06 2.06 0 01-2.06 2.06zM7.12 20.45H3.56V9h3.56v11.45zM22 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2z"/></svg>
-                            </a>
-                            
-                            <!-- Botón TikTok -->
-                            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white hover:text-keep-blue text-white flex items-center justify-center transition-colors duration-300 shadow-sm" title="Ir a TikTok">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.53.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.61-.6 3.19-1.63 4.39-1.11 1.28-2.73 2.05-4.46 2.15-1.74.1-3.48-.41-4.83-1.42-1.39-1.04-2.28-2.6-2.47-4.31-.19-1.73.31-3.52 1.34-4.88 1.1-1.44 2.78-2.39 4.6-2.58.15-.01.3-.02.46-.02v4.06c-.84.07-1.66.44-2.24 1.05-.59.62-.92 1.48-.88 2.34.04.85.45 1.66 1.1 2.21.64.55 1.5.83 2.36.78.85-.05 1.64-.47 2.19-1.12.56-.66.86-1.54.85-2.42V.02z"/></svg>
-                            </a>
-                            
+                            <button class="flex-1 bg-[#740F6B] text-white font-bold py-3 rounded-xl flex items-center justify-center hover:bg-purple-900 transition shadow-lg">
+                                Yape
+                            </button>
+                            <button class="flex-1 bg-[#00D09B] text-white font-bold py-3 rounded-xl flex items-center justify-center hover:bg-teal-500 transition shadow-lg">
+                                Plin
+                            </button>
                         </div>
+                        <p class="text-[10px] font-semibold uppercase mt-4 opacity-80">A nombre de: Asociación Civil Keepwatts</p>
                     </div>
                 </div>
+
+                <!-- Tarjeta 3: Redes Sociales (Azul oscuro) -->
+                <div class="rounded-3xl p-8 md:p-10 bg-keep-blue text-white shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col relative overflow-hidden">
+                    <!-- Figura decorativa de fondo -->
+                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-keep-yellow opacity-10 rounded-full pointer-events-none"></div>
+                    
+                    <h3 class="relative z-10 text-2xl font-black mb-3 uppercase tracking-wide text-keep-yellow">3. Amplifica el Mensaje</h3>
+                    <p class="relative z-10 font-medium mb-8 text-sm leading-relaxed text-blue-100 flex-grow">
+                        Si no puedes donar ahora, compartir nuestro trabajo es igual de valioso. Ayúdanos a llegar a más personas, empresas aliadas y voluntarios sumándote a nuestras redes.
+                    </p>
+
+                    <!-- Botones de Redes Sociales más grandes -->
+                    <div class="relative z-10 grid grid-cols-2 gap-4">
+                        <a href="#" target="_blank" class="bg-white/10 hover:bg-[#1877F2] text-white flex items-center justify-center gap-2 py-3 rounded-xl transition-all duration-300 shadow-sm font-bold text-sm">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
+                            Facebook
+                        </a>
+                        
+                        <a href="#" target="_blank" class="bg-white/10 hover:bg-gradient-to-r hover:from-[#F58529] hover:via-[#DD2A7B] hover:to-[#8134AF] text-white flex items-center justify-center gap-2 py-3 rounded-xl transition-all duration-300 shadow-sm font-bold text-sm">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85C2.38 3.86 3.9 2.31 7.15 2.23c1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-4.27.19-6.78 2.71-6.98 6.98C0 8.33 0 8.74 0 12s.01 3.67.07 4.95c.19 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.27-.19 6.78-2.71 6.98-6.98C24 15.67 24 15.26 24 12s-.01-3.67-.07-4.95c-.19-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.83a6.17 6.17 0 100 12.34 6.17 6.17 0 000-12.34zm0 10.16a4 4 0 110-8 4 4 0 010 8zm3.93-8.8a1.44 1.44 0 100-2.88 1.44 1.44 0 000 2.88z"/></svg>
+                            Instagram
+                        </a>
+                        
+                        <a href="#" target="_blank" class="bg-white/10 hover:bg-[#0077B5] text-white flex items-center justify-center gap-2 py-3 rounded-xl transition-all duration-300 shadow-sm font-bold text-sm">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.56c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.44A2.06 2.06 0 117.4 5.38a2.06 2.06 0 01-2.06 2.06zM7.12 20.45H3.56V9h3.56v11.45zM22 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2z"/></svg>
+                            LinkedIn
+                        </a>
+                        
+                        <a href="#" target="_blank" class="bg-white/10 hover:bg-black text-white flex items-center justify-center gap-2 py-3 rounded-xl transition-all duration-300 shadow-sm font-bold text-sm">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.53.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.61-.6 3.19-1.63 4.39-1.11 1.28-2.73 2.05-4.46 2.15-1.74.1-3.48-.41-4.83-1.42-1.39-1.04-2.28-2.6-2.47-4.31-.19-1.73.31-3.52 1.34-4.88 1.1-1.44 2.78-2.39 4.6-2.58.15-.01.3-.02.46-.02v4.06c-.84.07-1.66.44-2.24 1.05-.59.62-.92 1.48-.88 2.34.04.85.45 1.66 1.1 2.21.64.55 1.5.83 2.36.78.85-.05 1.64-.47 2.19-1.12.56-.66.86-1.54.85-2.42V.02z"/></svg>
+                            TikTok
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </section>
 
-
-
-    <!-- SECCIÓN FOOTER ARREGLADO -->
-    <footer class="bg-white pt-16 pb-8 border-t-2 border-gray-100">
+   <!-- ========================================== -->
+    <!-- SECCIÓN: FOOTER INSTITUCIONAL              -->
+    <!-- ========================================== -->
+    <footer class="bg-keep-blue text-white pt-20 pb-10 border-t-4 border-keep-yellow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
                 
-                <!-- Columna 1: Info de la ONG -->
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="text-keep-yellow text-2xl">☀️</div>
-                        <span class="font-black text-xl text-keep-blue tracking-tight leading-none uppercase">KEEP<br>WATTS</span>
+                <!-- Columna 1: Identidad de la ONG -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-keep-yellow flex items-center justify-center text-keep-blue shadow-md">
+                            <!-- Ícono de Sol Minimalista -->
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="font-black text-2xl tracking-tight leading-none uppercase block text-white">KeepWatts</span>
+                            <span class="text-[10px] text-keep-yellow font-bold tracking-widest uppercase">Asociación Civil</span>
+                        </div>
                     </div>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        Asociación Civil Keepwatts. Buscamos fines asistenciales, educativos, ecológicos, de desarrollo social y sostenible con el medio ambiente mediante energías renovables.
+                    <p class="text-blue-100 text-sm leading-relaxed font-medium pr-4">
+                        Buscamos fines asistenciales, educativos, ecológicos y de desarrollo social sostenible mediante la implementación de energías renovables y gestión de residuos.
                     </p>
                 </div>
                 
-                <!-- Columna 2: Enlaces Rápidos -->
+                <!-- Columna 2: Enlaces de Navegación -->
                 <div>
-                    <h4 class="text-lg font-bold mb-4 text-keep-blue uppercase">Conócenos</h4>
-                    <ul class="space-y-2 text-sm text-gray-500 font-medium">
-                        <li><a href="#" class="hover:text-keep-yellow transition">Sobre Nosotros</a></li>
-                        <li><a href="#" class="hover:text-keep-yellow transition">Nuestro Equipo</a></li>
-                        <li><a href="#" class="hover:text-keep-yellow transition">Proyectos en Curso</a></li>
-                        <li><a href="#" class="hover:text-keep-yellow transition">Transparencia Institucional</a></li>
+                    <h4 class="text-base font-bold mb-6 text-keep-yellow uppercase tracking-wider">Enlaces Rápidos</h4>
+                    <ul class="space-y-3 text-sm text-blue-100 font-medium">
+                        <li><a href="#pilares" class="hover:text-keep-yellow transition-colors flex items-center gap-2"><span>&rsaquo;</span> Pilares de Sostenibilidad</a></li>
+                        <li><a href="#proyectos" class="hover:text-keep-yellow transition-colors flex items-center gap-2"><span>&rsaquo;</span> Evaluación de Campo</a></li>
+                        <li><a href="#experiencia-privada" class="hover:text-keep-yellow transition-colors flex items-center gap-2"><span>&rsaquo;</span> Experiencia Corporativa</a></li>
+                        <li><a href="#mapa" class="hover:text-keep-yellow transition-colors flex items-center gap-2"><span>&rsaquo;</span> Mapa de Impacto</a></li>
                     </ul>
                 </div>
                 
-                <!-- Columna 3: Contacto -->
+                <!-- Columna 3: Información de Contacto -->
                 <div>
-                    <h4 class="text-lg font-bold mb-4 text-keep-blue uppercase">Contacto</h4>
-                    <ul class="space-y-3 text-sm text-gray-500 font-medium">
-                        <li class="flex items-start">
-                            <span class="mr-2 text-keep-yellow">📍</span> 
-                            <span>Distrito de Surco,<br>Lima - Perú</span>
+                    <h4 class="text-base font-bold mb-6 text-keep-yellow uppercase tracking-wider">Contacto Oficial</h4>
+                    <ul class="space-y-4 text-sm text-blue-100 font-medium">
+                        <li class="flex items-start gap-3">
+                            <!-- Ícono de Ubicación Minimalista -->
+                            <svg class="w-5 h-5 text-keep-yellow shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>Distrito de Surco, Lima - Perú</span>
                         </li>
-                        <li class="flex items-center">
-                            <span class="mr-2 text-keep-yellow">✉️</span> 
-                            <a href="mailto:contacto@keepwatts.org" class="hover:text-keep-blue transition">contacto@keepwatts.org</a>
+                        <li class="flex items-center gap-3">
+                            <!-- Ícono de Correo Minimalista -->
+                            <svg class="w-5 h-5 text-keep-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <a href="mailto:contacto@keepwatts.org" class="hover:text-keep-yellow transition-colors">contacto@keepwatts.org</a>
                         </li>
-                        <li class="flex items-center">
-                            <span class="mr-2 text-keep-yellow">📞</span> 
-                            <a href="tel:+51903397177" class="hover:text-keep-blue transition">+51 903 397 177</a>
+                        <li class="flex items-center gap-3">
+                            <!-- Ícono de Teléfono Minimalista -->
+                            <svg class="w-5 h-5 text-keep-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <a href="tel:+51903397177" class="hover:text-keep-yellow transition-colors">+51 903 397 177</a>
                         </li>
                     </ul>
                 </div>
 
             </div>
             
-            <!-- Derechos de autor -->
-            <div class="border-t border-gray-200 pt-8 text-center text-sm font-medium text-gray-400">
-                &copy; 2026 Asociación Civil Keepwatts. Todos los derechos reservados.
+            <!-- Línea divisoria y Copyright -->
+            <div class="border-t border-blue-900/60 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-medium text-blue-200">
+                <p>&copy; 2026 Asociación Civil Keepwatts. Todos los derechos reservados.</p>
+                <div class="flex gap-6">
+                    <span class="hover:text-white transition-colors cursor-pointer">Términos y Condiciones</span>
+                    <span class="hover:text-white transition-colors cursor-pointer">Política de Privacidad</span>
+                </div>
             </div>
+            
         </div>
     </footer>
 
