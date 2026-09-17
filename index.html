@@ -197,7 +197,7 @@
 
 
 
-    <!-- ========================================== -->
+   <!-- ========================================== -->
     <!-- SECCIÓN: ALIADOS ESTRATÉGICOS (PARTNERS) -->
     <!-- ========================================== -->
     
@@ -211,58 +211,62 @@
         }
         .marquee-track {
             display: flex;
-            /* Si quieres que vaya más rápido o más lento, cambia el "30s" */
+            align-items: center; /* Alinea los logos verticalmente */
             animation: marquee 30s linear infinite;
         }
         .marquee-track:hover {
-            /* Opcional: El carrusel se pausa si alguien le pone el mouse encima */
+            /* Pausa el carrusel al poner el mouse encima */
             animation-play-state: paused; 
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Se desplaza al 50% porque duplicaremos el contenido */
+            100% { transform: translateX(-50%); } 
         }
         
-        /* Estilo simulando logotipos de instituciones */
-        .partner-logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: white;
-            padding: 0 4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        /* Estilo para las imágenes de los logos */
+        .partner-img {
+            height: 65px; /* Alto fijo para que todos se vean ordenados */
+            width: auto;
+            margin: 0 3.5rem; /* Espaciado entre logos */
+            object-fit: contain;
+            /* Efecto blanco/negro elegante */
+            filter: grayscale(100%) opacity(60%);
+            transition: all 0.4s ease;
+        }
+        .partner-img:hover {
+            /* Recupera el color al pasar el mouse */
+            filter: grayscale(0%) opacity(100%);
+            transform: scale(1.05);
         }
     </style>
 
-    <section class="py-12 bg-white">
+    <section class="py-16 bg-white border-t border-gray-100">
         <!-- Título -->
-        <div class="max-w-7xl mx-auto px-4 mb-8">
-            <h2 class="text-3xl font-black text-keep-blue uppercase tracking-wide text-center md:text-left">Partners</h2>
+        <div class="max-w-7xl mx-auto px-4 mb-10">
+            <h2 class="text-3xl font-black text-keep-blue uppercase tracking-wide text-center md:text-left">Partners y Aliados</h2>
+            <div class="w-20 h-[3px] bg-keep-yellow mx-auto md:mx-0 mt-2"></div>
         </div>
         
-        <!-- Franja Azul con Carrusel -->
-        <div class="w-full bg-keep-blue py-10 marquee-container shadow-inner">
+        <!-- Franja con Carrusel -->
+        <!-- Cambié el fondo de azul a 'keep-light' (gris claro) porque la mayoría de los logos oficiales tienen letras oscuras y no se verían bien sobre azul -->
+        <div class="w-full bg-keep-light py-10 marquee-container shadow-inner border-y border-gray-200">
             <div class="marquee-track">
                 
-                <!-- PRIMER GRUPO DE INSTITUCIONES -->
-                <div class="partner-logo">Universidad de Ingeniería y Tecnología <span class="text-keep-yellow ml-2">UTEC</span></div>
-                <div class="partner-logo">Municipalidad de Surco</div>
-                <div class="partner-logo">Banco de Alimentos Perú</div>
-                <div class="partner-logo">Colegio de Ingenieros del Perú</div>
-                <div class="partner-logo">Ministerio de Energía y Minas</div>
-                <div class="partner-logo">Cáritas del Perú</div>
+                <!-- PRIMER GRUPO DE LOGOS -->
+                <img src="logo-utec.jpg" alt="UTEC" class="partner-img" title="Universidad de Ingeniería y Tecnología">
+                <img src="logo-surco.jpg" alt="Municipalidad de Surco" class="partner-img" title="Municipalidad de Surco">
+                <img src="logo-banco.jpg" alt="Banco de Alimentos Perú" class="partner-img" title="Banco de Alimentos Perú">
+                <img src="logo-cip.jpg" alt="Colegio de Ingenieros del Perú" class="partner-img" title="Colegio de Ingenieros del Perú">
+                <img src="logo-minem.jpg" alt="Ministerio de Energía y Minas" class="partner-img" title="Ministerio de Energía y Minas">
+                <img src="logo-caritas.jpg" alt="Cáritas del Perú" class="partner-img" title="Cáritas del Perú">
                 
-                <!-- SEGUNDO GRUPO (Copia exacta del primero para hacer el efecto infinito) -->
-                <!-- ¡No borres este grupo! Es el truco visual para que el giro no se corte -->
-                <div class="partner-logo">Universidad de Ingeniería y Tecnología <span class="text-keep-yellow ml-2">UTEC</span></div>
-                <div class="partner-logo">Municipalidad de Surco</div>
-                <div class="partner-logo">Banco de Alimentos Perú</div>
-                <div class="partner-logo">Colegio de Ingenieros del Perú</div>
-                <div class="partner-logo">Ministerio de Energía y Minas</div>
-                <div class="partner-logo">Cáritas del Perú</div>
+                <!-- SEGUNDO GRUPO (Copia exacta para el efecto infinito) -->
+                <img src="logo-utec.jpg" alt="UTEC" class="partner-img" title="Universidad de Ingeniería y Tecnología">
+                <img src="logo-surco.jpg" alt="Municipalidad de Surco" class="partner-img" title="Municipalidad de Surco">
+                <img src="logo-banco.jpg" alt="Banco de Alimentos Perú" class="partner-img" title="Banco de Alimentos Perú">
+                <img src="logo-cip.jpg" alt="Colegio de Ingenieros del Perú" class="partner-img" title="Colegio de Ingenieros del Perú">
+                <img src="logo-minem.jpg" alt="Ministerio de Energía y Minas" class="partner-img" title="Ministerio de Energía y Minas">
+                <img src="logo-caritas.jpg" alt="Cáritas del Perú" class="partner-img" title="Cáritas del Perú">
 
             </div>
         </div>
