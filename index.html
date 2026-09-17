@@ -34,49 +34,69 @@
 </head>
 <body class="bg-keep-light font-sans text-gray-800">
 
-<!-- MENÚ DE NAVEGACIÓN -->
-    <nav class="bg-white shadow-sm fixed w-full z-50 top-0 py-2">
+<!-- MENÚ DE NAVEGACIÓN OPTIMIZADO -->
+    <!-- Agregamos id="navbar", fondo translúcido (white/90) y backdrop-blur para el efecto cristal -->
+    <nav id="navbar" class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-50 top-0 py-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 
-                <!-- 1. Logo (Letras más grandes) -->
-                <a href="#" class="flex-shrink-0 flex flex-col justify-center">
-                    <span class="text-3xl font-black text-keep-blue tracking-tight leading-none">KeepWatts</span>
-                    <span class="text-xs text-gray-500 font-bold tracking-widest mt-1">ASOCIACION CIVIL SIN FINES DE LUCRO</span>
+                <!-- 1. Logo (Con efecto de cambio de color al pasar el mouse) -->
+                <a href="#" class="flex-shrink-0 flex flex-col justify-center group">
+                    <span class="text-3xl font-black text-keep-blue tracking-tight leading-none group-hover:text-[#00AEEF] transition-colors duration-300">KeepWatts</span>
+                    <span class="text-xs text-gray-500 font-bold tracking-widest mt-1 group-hover:text-keep-yellow transition-colors duration-300">ONG AMBIENTAL</span>
                 </a>
                 
-                <!-- 2. Menú Hamburguesa (Móvil) - INTACTO -->
-                <div class="flex items-center md:hidden">
-                    <button id="mobile-menu-button" class="text-keep-blue hover:text-keep-yellow focus:outline-none">
+                <!-- 2. Menú Hamburguesa (Móvil) -->
+                <div class="flex items-center lg:hidden">
+                    <button id="mobile-menu-button" class="text-keep-blue hover:text-keep-yellow focus:outline-none transition-colors duration-300">
                         <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
                 </div>
                 
-                <!-- 3. Menú Desktop (Letras aumentadas a text-base) -->
-                <div class="hidden md:flex items-center space-x-6">
+                <!-- 3. Menú Desktop (Efecto de subrayado animado) -->
+                <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
                     <div class="flex space-x-6 mr-2">
-                        <a href="#" class="text-keep-blue font-bold text-base hover:text-blue-800 transition">Inicio</a>
-                        <a href="#nosotros" class="text-gray-600 font-semibold text-base hover:text-keep-blue transition">Nosotros</a>
-                        <a href="#pilares" class="text-gray-600 font-semibold text-base hover:text-keep-blue transition">Pilares de Impacto</a>
-                        <a href="#proyectos" class="text-gray-600 font-semibold text-base hover:text-keep-blue transition">Proyectos Rurales</a>
-                        <a href="#reciclaje" class="text-gray-600 font-semibold text-base hover:text-keep-blue transition">Reciclaje RAEE</a>
+                        <a href="#" class="relative text-keep-blue font-bold text-base group">
+                            Inicio
+                            <span class="absolute -bottom-1 left-0 w-full h-[2px] bg-keep-yellow transition-all duration-300"></span>
+                        </a>
+                        <a href="#pilares" class="relative text-gray-600 font-semibold text-base hover:text-keep-blue transition-colors group">
+                            Nuestros Pilares
+                            <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-keep-yellow transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#proyectos" class="relative text-gray-600 font-semibold text-base hover:text-keep-blue transition-colors group">
+                           Factibilidad
+                            <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-keep-yellow transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#propuesta" class="relative text-gray-600 font-semibold text-base hover:text-keep-blue transition-colors group">
+                            Nuestra Propuesta
+                            <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-keep-yellow transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#experiencia-privada" class="relative text-gray-600 font-semibold text-base hover:text-keep-blue transition-colors group">
+                            Experiencia Corporativa
+                            <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-keep-yellow transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        
                     </div>
-                    <a href="#apoyanos" class="bg-[#0ea5e9] text-white px-6 py-2 rounded-full font-bold text-base hover:bg-blue-500 transition shadow-md">APÓYANOS ♡</a>
+                    <!-- Botón de Acción Principal (Efecto de luz, gradiente y elevación) -->
+                    <a href="#involucrate" class="bg-gradient-to-r from-[#0ea5e9] to-keep-blue text-white px-7 py-2.5 rounded-full font-bold text-base hover:shadow-[0_0_15px_rgba(14,165,233,0.5)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300">
+                        APÓYANOS ♡
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- 4. MENÚ MÓVIL Desplegable (Letras grandes text-lg para fácil lectura) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
-            <div class="px-4 pt-4 pb-6 space-y-2 flex flex-col">
-                <a href="#" class="mobile-link text-keep-blue font-bold px-4 py-3 text-lg text-center">Inicio</a>
-                <a href="#nosotros" class="mobile-link text-gray-600 font-semibold px-4 py-3 text-lg text-center">Nosotros</a>
-                <a href="#pilares" class="mobile-link text-gray-600 font-semibold px-4 py-3 text-lg text-center">Pilares de Impacto</a>
-                <a href="#proyectos" class="mobile-link text-gray-600 font-semibold px-4 py-3 text-lg text-center">Proyectos Rurales</a>
-                <a href="#reciclaje" class="mobile-link text-gray-600 font-semibold px-4 py-3 text-lg text-center">Reciclaje RAEE</a>
-                <a href="#apoyanos" class="mobile-link bg-[#0ea5e9] text-white px-4 py-3 rounded-full font-bold text-lg text-center mt-4 shadow-md">APÓYANOS ♡</a>
+        <!-- 4. MENÚ MÓVIL Desplegable -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-xl absolute w-full transition-all duration-300">
+            <div class="px-4 pt-2 pb-6 space-y-1 flex flex-col">
+                <a href="#" class="mobile-link block text-keep-blue font-bold px-4 py-3 text-lg text-center rounded-xl hover:bg-blue-50 transition-colors">Inicio</a>
+                <a href="#proyectos" class="mobile-link block text-gray-600 font-semibold px-4 py-3 text-lg text-center rounded-xl hover:bg-blue-50 hover:text-keep-blue transition-colors">Evaluación de Campo</a>
+                <a href="#propuesta" class="mobile-link block text-gray-600 font-semibold px-4 py-3 text-lg text-center rounded-xl hover:bg-blue-50 hover:text-keep-blue transition-colors">La Propuesta</a>
+                <a href="#experiencia-privada" class="mobile-link block text-gray-600 font-semibold px-4 py-3 text-lg text-center rounded-xl hover:bg-blue-50 hover:text-keep-blue transition-colors">Corporativo</a>
+                <a href="#pilares" class="mobile-link block text-gray-600 font-semibold px-4 py-3 text-lg text-center rounded-xl hover:bg-blue-50 hover:text-keep-blue transition-colors">Pilares</a>
+                <a href="#involucrate" class="mobile-link bg-gradient-to-r from-[#0ea5e9] to-keep-blue text-white px-4 py-3 rounded-full font-bold text-lg text-center mt-4 shadow-md hover:shadow-lg transition-all">APÓYANOS ♡</a>
             </div>
         </div>
     </nav>
@@ -1115,6 +1135,22 @@
             });
         }
 
+// ==========================================
+        // EFECTO DE SCROLL EN EL MENÚ PRINCIPAL
+        // ==========================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            // Si bajamos más de 20 píxeles, el menú se hace más delgado
+            if (window.scrollY > 20) {
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-1');
+            } else {
+                // Si volvemos hasta arriba, recupera su tamaño original
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-1');
+            }
+        });
+        
     </script>
 
     <!-- ========================================== -->
